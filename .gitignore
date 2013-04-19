@@ -1,0 +1,9 @@
+*.gem
+*.lock
+.bundle
+.config
+vendor/bundle
+test/
+tmp/
+.env
+status.txt
