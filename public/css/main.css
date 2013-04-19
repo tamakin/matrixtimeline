@@ -39,3 +39,8 @@ html { font-size: 62.5%; }
     -1px 1px #000,
     1px 1px #000;
 }
+.box:hover {
+  border: 2px solid white;
+  -webkit-transform: scale(1.5);
+  -moz-transform: scale(1.5);
+}

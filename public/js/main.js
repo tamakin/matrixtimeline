@@ -1,5 +1,5 @@
 io = new RocketIO().connect();
-var square = 50;
+var square = 30;
 var maxno = 0;
 var curno = 0;
 var prefix = "box_";
@@ -44,7 +44,7 @@ io.on("mes", function(data) {
     $(cls).data("text", null);
     $(cls).data("protected", null);
     $(cls).data("retweet", null);
-    $(cls).text(null);
+    $(cls).text("");
     $(cls).removeClass("retweet");
     $(cls).removeClass("protected");
     curno = 1;
