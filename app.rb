@@ -50,13 +50,15 @@ module MatrixTweet
         ts.userstream do |status|
           tweet = {}
           twstatus = !status.retweeted_status ? status : status.retweeted_status
-          tweet[:name] = twstatus.user.screen_name
-          tweet[:id] = twstatus.id
+          tweet[:created_at] = twstatus.created_at
+          tweet[:name] = twstatus.user.name
+          tweet[:screen_name] = twstatus.user.screen_name
+          tweet[:id] = twstatus.id.to_s
           tweet[:image] = twstatus.user.profile_image_url
           tweet[:text] = twstatus.text
           tweet[:protected] = twstatus.user.protected
           tweet[:retweet] = status.retweeted_status ? true : false
-          p "#{client.session} => @#{tweet[:name]} : #{tweet[:image]}"
+          p "#{client.session} => @#{tweet[:screen_name]} : #{tweet[:image]}"
           io.push :mes, {:value => tweet.to_json}, {:to => client.session}
         end
         p "start"
