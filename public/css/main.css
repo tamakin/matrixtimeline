@@ -23,8 +23,12 @@ html { font-size: 62.5%; }
     -1px 1px #000,
     1px 1px #000;
 }
-.retweet { color: crimson; }
-.protected { color: darkgray; }
+.retweet {
+  color: crimson;
+}
+.protected {
+  color: darkgray;
+}
 #main, #sub {
   margin: 0px auto;
   display: -webkit-box;
@@ -57,11 +61,15 @@ a {
   -moz-background-size:contain;
   background-size:contain;
 }
+
+/*
 .box:hover {
   border: 2px solid white;
   -webkit-transform: scale(1.5);
   -moz-transform: scale(1.5);
 }
+*/
+
 .favicon {
   margin-right: 5px;
   vertical-align: -5px;
@@ -78,9 +86,14 @@ ul.tl li {
   margin: 3px;
   padding: 3px;
   background: whitesmoke;
-  border: 1px solid slategray;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
+}
+.tlretweet {
+  border: 1px solid crimson;
+}
+.tlprotected {
+  border: 1px solid darkgray;
 }
 

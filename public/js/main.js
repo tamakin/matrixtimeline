@@ -3,6 +3,7 @@ var square = 30;
 var maxno = 0;
 var curno = 0;
 var prefix = "box_";
+var opacity = 0.5;
 $(function() {
   // var width = $(document).width();
   // var height = $(document).height();
@@ -21,14 +22,26 @@ $(function() {
       var div = $("<div>").addClass("box");
       $(div).css("line-height", square + "px");
       maxno += 1;
-      $(div).attr("id", prefix + maxno);
+      var id = prefix + maxno;
+      $(div).attr("id", id);
+      $(div).css("-moz-opacity", opacity);
+      $(div).css("opacity", opacity);
       $(div).on("click", function(e) {
         var data = $(this).data("data");
         if (data) {
           var mes = JSON.parse(data);
-          MakeTimeline("#info .tl", mes, true);
+          MakeTimeline("#info .tl", mes, id, true);
         }
       });
+      $(div).on("mouseenter", function(e) {
+        $(this).css("-moz-opacity", 1);
+        $(this).css("opacity", 1);
+      });
+      $(div).on("mouseleave", function(e) {
+        $(this).css("-moz-opacity", opacity);
+        $(this).css("opacity", opacity);
+      });
+
       $(div).text(maxno);
       $(sqdiv).append(div);
     }
@@ -54,6 +67,7 @@ io.on("mes", function(data) {
     var cls = ".box";
     $(cls).css("background-image", "none");
     $(cls).data("data", null);
+    $(cls).data("id", null);
     $(cls).text("");
     $(cls).removeClass("retweet");
     $(cls).removeClass("protected");
@@ -65,13 +79,14 @@ io.on("mes", function(data) {
   // console.log(id + " : " + data.value);
   $(id).css("background-image", "url('" + mes["image"] + "')");
   $(id).data("data", data.value);
+  $(id).data("id", prefix + curno);
   $(id).text("");
   if (mes["retweet"]) { $(id).text("R"); $(id).addClass("retweet"); }
   if (mes["protected"]) { $(id).text("P"); $(id).addClass("protected"); }
-  MakeTimeline("#timeline .tl", mes, false);
+  MakeTimeline("#timeline .tl", mes, prefix + curno, false);
 });
 
-function MakeTimeline(node, mes, mode) {
+function MakeTimeline(node, mes, id, mode) {
   var li = $("<li>");
 
   var img = $("<img>");
@@ -87,6 +102,8 @@ function MakeTimeline(node, mes, mode) {
   $(twpage).attr("href", "https://twitter.com/{0}/status/{1}".format(mes["screen_name"], mes["id"]));
   $(twpage).attr("target", "_blank");
   $(twpage).text("{0}".format(mes["created_at"]));
+
+  var source = $(mes["source"]);
 
   var delpage = $("<a>");
   $(delpage).attr("href", "#");
@@ -107,10 +124,24 @@ function MakeTimeline(node, mes, mode) {
   append.push($(span));
   append.push($("<br>"));
   append.push($(twpage));
+  append.push($("<span>&nbsp;/&nbsp;</span>"));
+  append.push($(source));
   if (mode) {
-    append.push($("<span>&nbsp;</span>"));
+    append.push($("<span>&nbsp;/&nbsp;</span>"));
     append.push($(delpage));
   }
+  if (mes["retweet"]) { $(li).addClass("tlretweet"); }
+  if (mes["protected"]) { $(li).addClass("tlprotected"); }
+  $(li).on("dblclick", function(e) {
+    $("#" + id).trigger("click");
+  });
+  $(li).on("mouseenter", function(e) {
+    $("#" + id).trigger("mouseenter");
+  });
+  $(li).on("mouseleave", function(e) {
+    $("#" + id).trigger("mouseleave");
+  });
+
   $(li).append(append);
   $(node).prepend(li);
 }
