@@ -57,6 +57,8 @@ module MatrixTweet
           tweet[:image] = twstatus.user.profile_image_url
           tweet[:text] = twstatus.text
           tweet[:source] = twstatus.source
+          tweet[:retweet_count] = twstatus.retweet_count
+          tweet[:favorite_count] = twstatus.favorite_count
           tweet[:protected] = twstatus.user.protected
           tweet[:retweet] = status.retweeted_status ? true : false
           p "#{client.session} => @#{tweet[:screen_name]} : #{tweet[:image]}"

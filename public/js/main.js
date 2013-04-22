@@ -117,6 +117,8 @@ function MakeTimeline(node, mes, id, mode) {
   txt = txt.replace(/\r/g, '\n');
   $(span).html(txt.replace(/\n/g, "<br>"));
 
+  var space = "<span>&nbsp;/&nbsp;</span>";
+
   var append = [];
   append.push($(img));
   append.push($(name));
@@ -124,10 +126,12 @@ function MakeTimeline(node, mes, id, mode) {
   append.push($(span));
   append.push($("<br>"));
   append.push($(twpage));
-  append.push($("<span>&nbsp;/&nbsp;</span>"));
+  append.push($(space));
+  append.push($("<span>F:{0} R:{1}</span>".format(mes["favorite_count"], mes["retweet_count"])));
+  append.push($(space));
   append.push($(source));
   if (mode) {
-    append.push($("<span>&nbsp;/&nbsp;</span>"));
+    append.push($(space));
     append.push($(delpage));
   }
   if (mes["retweet"]) { $(li).addClass("tlretweet"); }
