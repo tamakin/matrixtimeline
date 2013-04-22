@@ -98,6 +98,9 @@ function MakeTimeline(node, mes, id, mode) {
   $(name).attr("target", "_blank");
   $(name).text("{0} / (@{1})".format(mes["name"], mes["screen_name"]));
 
+  var followers = $("<span>");
+  $(followers).html(" / F:{0} / FW:{1} / L:{2}".format(mes["friends_count"], mes["followers_count"], mes["listed_count"]));
+
   var twpage = $("<a>");
   $(twpage).attr("href", "https://twitter.com/{0}/status/{1}".format(mes["screen_name"], mes["id"]));
   $(twpage).attr("target", "_blank");
@@ -122,6 +125,7 @@ function MakeTimeline(node, mes, id, mode) {
   var append = [];
   append.push($(img));
   append.push($(name));
+  append.push($(followers));
   append.push($("<br>"));
   append.push($(span));
   append.push($("<br>"));

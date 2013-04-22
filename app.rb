@@ -53,6 +53,9 @@ module MatrixTweet
           tweet[:created_at] = twstatus.created_at
           tweet[:name] = twstatus.user.name
           tweet[:screen_name] = twstatus.user.screen_name
+          tweet[:friends_count] = twstatus.user.friends_count
+          tweet[:followers_count] = twstatus.user.followers_count
+          tweet[:listed_count] = twstatus.user.listed_count
           tweet[:id] = twstatus.id.to_s
           tweet[:image] = twstatus.user.profile_image_url
           tweet[:text] = twstatus.text
