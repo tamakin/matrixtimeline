@@ -90,6 +90,10 @@ ul.tl li {
   -webkit-border-radius: 5px;
   border-radius: 5px;
 }
+ul.tl li:hover {
+  background: mistyrose;
+}
+
 .tlretweet {
   border: 1px solid crimson;
 }
