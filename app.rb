@@ -49,7 +49,7 @@ module MatrixTweet
         ts = TweetStream::Client.new
         ts.userstream do |status|
           tweet = {}
-          twstatus = !status.retweeted_status ? status : status.retweeted_status
+          twstatus = status.retweeted_status.nil? ? status : status.retweeted_status
           tweet[:created_at] = twstatus.created_at
           tweet[:name] = twstatus.user.name
           tweet[:screen_name] = twstatus.user.screen_name
@@ -63,7 +63,7 @@ module MatrixTweet
           tweet[:retweet_count] = twstatus.retweet_count
           tweet[:favorite_count] = twstatus.favorite_count
           tweet[:protected] = twstatus.user.protected
-          tweet[:retweet] = status.retweeted_status ? true : false
+          tweet[:retweet] = !status.retweeted_status.nil?
           p "#{client.session} => @#{tweet[:screen_name]} : #{tweet[:image]}"
           io.push :mes, {:value => tweet.to_json}, {:to => client.session}
         end

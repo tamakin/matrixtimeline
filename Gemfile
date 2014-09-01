@@ -4,7 +4,7 @@ source "https://rubygems.org"
 gem "sinatra"
 gem "sinatra-contrib"
 gem "sinatra-rocketio"
-gem "tweetstream"
+gem 'tweetstream', '~> 2.6.0'
 gem "thin"
 gem "foreman"
 
